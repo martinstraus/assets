@@ -10,7 +10,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Martín Straus <martin.straus@ventapp.com.ar>
+ * @author Martín Straus <martinstraus@gmail.com>
  */
 public class TomlConfigTest {
 
