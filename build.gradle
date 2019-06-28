@@ -6,13 +6,26 @@ plugins {
 repositories {
     jcenter()
     mavenCentral()
+    maven {
+        url 'https://oss.sonatype.org/content/groups/public/'
+    }
 }
 
 dependencies {
     implementation 'com.sparkjava:spark-core:2.2'
     implementation 'com.twilio.sdk:twilio-java-sdk:4.4.5'
     implementation 'com.google.guava:guava:26.0-jre'
+    implementation 'org.thymeleaf:thymeleaf:3.0.9.RELEASE'
+    implementation 'javax.money:money-api:1.0.3'
+    implementation 'org.javamoney:moneta:1.1'
+    implementation 'javax.measure:unit-api:1.0'
+    implementation 'tec.units:unit-ri:1.0.3'
+    implementation 'com.zaxxer:HikariCP:3.1.0'
+    implementation 'me.grison:jtoml:1.0.0'
+    runtime 'org.postgresql:postgresql:+'
+    testImplementation 'com.mashape.unirest:unirest-java:1.4.6'
     testImplementation 'junit:junit:4.12'
+    
 }
 
 dependencies {

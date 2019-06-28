@@ -1,11 +1,13 @@
 package assets;
 
+import static spark.Spark.*;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
+    public static void main(String[] args) {
+        new App().run();
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    public void run() {
+        get("/", (req, res) -> "Hello, World!");
     }
 }
