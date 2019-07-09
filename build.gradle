@@ -27,6 +27,7 @@ dependencies {
     runtime 'org.slf4j:slf4j-simple:+'
     testImplementation 'com.mashape.unirest:unirest-java:1.4.6'
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.hamcrest:hamcrest:+'
     
 }
 
@@ -34,6 +35,10 @@ dependencies {
 }
 
 mainClassName = 'assets.App'
+
+test {
+    systemProperty "scope", "test"
+}
 
 run {    
     systemProperty "scope", System.getProperty("scope")

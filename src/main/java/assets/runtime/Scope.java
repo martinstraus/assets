@@ -1,11 +1,11 @@
 package assets.runtime;
 
-import assets.config.Configuration;
+import javax.sql.DataSource;
 
 /**
  *
  * @author Martín Straus <martinstraus@gmail.com>
  */
 public interface Scope {
-    Configuration configuration();
+    DataSource dataSource();
 }

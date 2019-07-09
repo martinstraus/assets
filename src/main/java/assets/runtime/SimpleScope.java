@@ -1,25 +1,34 @@
 package assets.runtime;
 
 import assets.config.Configuration;
-import assets.config.TomlConfig;
-import java.io.File;
-import java.io.IOException;
+import assets.config.Database;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
 
 /**
+ * Application-level configuration that could change between runtime
+ * environments.
  *
  * @author Martín Straus <martinstraus@gmail.com>
  */
 public class SimpleScope implements Scope {
 
-    private final TomlConfig configuration;
+    private final Configuration configuration;
 
-    public SimpleScope(File configFile) throws IOException {
-        configuration = new TomlConfig(configFile);
+    public SimpleScope(Configuration configuration) {
+        this.configuration = configuration;
     }
 
     @Override
-    public Configuration configuration() {
-        return configuration;
+    public DataSource dataSource() {
+        Database config = configuration.database();
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setDriverClassName(config.driver());
+        hikariConfig.setJdbcUrl(config.url());
+        hikariConfig.setUsername(config.username());
+        hikariConfig.setPassword(config.password());
+        return new HikariDataSource(hikariConfig);
     }
 
 }
