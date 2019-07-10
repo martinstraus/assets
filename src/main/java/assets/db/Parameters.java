@@ -19,9 +19,11 @@ package assets.db;
 import assets.Kind;
 import assets.Type;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +41,7 @@ public class Parameters {
 
     static {
         compatibilityFunctions.put(LocalDateTime.class, (LocalDateTime v) -> Timestamp.valueOf(v));
+        compatibilityFunctions.put(LocalDate.class, (LocalDate v) -> Date.valueOf(v));
         compatibilityFunctions.put(Kind.class, (Kind v) -> v.getId().value());
         compatibilityFunctions.put(CurrencyUnit.class, (CurrencyUnit v) -> v.getCurrencyCode());
         compatibilityFunctions.put(NumberValue.class, (NumberValue v) -> v.numberValue(BigDecimal.class));

@@ -3,6 +3,7 @@ package assets;
 import assets.runtime.Scopes;
 import assets.tests.Tests;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 import javax.sql.DataSource;
@@ -26,9 +27,9 @@ public class InvestmentTest {
         TransactionsDB transactionsDB = new TransactionsDB(ds);
         Kind AAA = kinds.create(Type.BOND, new Kind.Symbol("AAA"));
         MonetaryAmount price = Money.of(new BigDecimal(100), Monetary.getCurrency("ARS"));
-        transactionsDB.buy(AAA, price, new BigDecimal(5));
-        transactionsDB.buy(AAA, price, new BigDecimal(10));
-        transactionsDB.buy(AAA, price, new BigDecimal(15));
+        transactionsDB.buy(LocalDate.now(), AAA, price, new BigDecimal(5));
+        transactionsDB.buy(LocalDate.now(), AAA, price, new BigDecimal(10));
+        transactionsDB.buy(LocalDate.now(), AAA, price, new BigDecimal(15));
         Asset asset = assets.ofType(AAA);
         assertThat(
                 "asset total after investing",

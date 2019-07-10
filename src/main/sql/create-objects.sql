@@ -7,7 +7,8 @@ create table kinds (
 
 create table transactions (
     id serial primary key,
-    creation_timestamp timestamp with time zone,
+    creation_timestamp timestamp with time zone not null,
+    date date not null,
     kind int not null,
     quantity numeric(10,2) not null,
     unitary_price_currency char(3) not null,

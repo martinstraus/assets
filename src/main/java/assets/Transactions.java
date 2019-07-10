@@ -9,8 +9,8 @@ import javax.money.MonetaryAmount;
  */
 public interface Transactions {
 
-    Transaction buy(Kind kind, MonetaryAmount unitaryPrice, BigDecimal units);
-    
+    Transaction buy(java.time.LocalDate purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units);
+       
     void removeAll();
 
 }
