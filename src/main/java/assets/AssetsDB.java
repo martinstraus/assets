@@ -27,16 +27,16 @@ import javax.sql.DataSource;
  */
 public class AssetsDB implements Assets {
 
-    private final AssetTypes assetTypes;
+    private final Kinds kinds;
     private final SelectOne<Asset> selectOfType;
 
-    public AssetsDB(DataSource ds, AssetTypes assetTypes) {
-        this.assetTypes = assetTypes;
-        selectOfType = new SelectOne<>(ds, "select * from assets where asset_type = ?", this::transformOne);
+    public AssetsDB(DataSource ds, Kinds kinds) {
+        this.kinds = kinds;
+        selectOfType = new SelectOne<>(ds, "select * from assets where kind = ?", this::transformOne);
     }
 
     @Override
-    public Asset ofType(AssetType type) {
+    public Asset ofType(Kind type) {
         try {
             return selectOfType.select(type);
         } catch (SQLException ex) {
@@ -47,7 +47,7 @@ public class AssetsDB implements Assets {
     private Asset transformOne(ResultSet rs) {
         try {
             return new Asset(
-                    assetTypes.findBySymbol(new AssetType.Symbol(rs.getString("asset_type"))),
+                    kinds.findBySymbol(new Kind.Symbol(rs.getString("kind"))),
                     rs.getBigDecimal("quantity")
             );
         } catch (SQLException ex) {

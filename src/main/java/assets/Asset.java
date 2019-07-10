@@ -8,15 +8,15 @@ import java.math.BigDecimal;
  */
 public class Asset {
 
-    private final AssetType type;
+    private final Kind type;
     private final BigDecimal quantity;
 
-    public Asset(AssetType type, BigDecimal quantity) {
+    public Asset(Kind type, BigDecimal quantity) {
         this.type = type;
         this.quantity = quantity;
     }
 
-    public AssetType type() {
+    public Kind type() {
         return type;
     }
 

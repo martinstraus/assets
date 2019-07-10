@@ -30,7 +30,7 @@ public class TomlConfigTest {
         assertThat(
             "database config",
             new TomlConfig(new File("./src/test/config/test.cfg")).database(),
-            is(equalTo(new Database("org.postgresql.Driver", "jdbc:postgresql://localhost:5432/postgres?currentSchema=assets", "assets", "assets")))
+            is(equalTo(new Database("org.postgresql.Driver", "jdbc:postgresql://localhost:5432/postgres?currentSchema=assets_test", "assets_test", "test")))
         );
     }
 

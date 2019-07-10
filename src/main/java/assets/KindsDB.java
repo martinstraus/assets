@@ -29,40 +29,40 @@ import javax.sql.DataSource;
  *
  * @author martinstraus
  */
-public class AssetTypesBD implements AssetTypes {
+public class KindsDB implements Kinds {
 
     private final InsertOne create;
-    private final SelectOne<AssetType> findBySymbol;
+    private final SelectOne<Kind> findBySymbol;
     private final Delete deleteAll;
-    private final SelectSet<AssetType> findAll;
+    private final SelectSet<Kind> findAll;
 
-    public AssetTypesBD(DataSource ds) {
-        this.create = new InsertOne(ds, "insert into asset_types (symbol) values (?)");
-        this.findBySymbol = new SelectOne<AssetType>(
+    public KindsDB(DataSource ds) {
+        this.create = new InsertOne(ds, "insert into kinds (symbol) values (?)");
+        this.findBySymbol = new SelectOne<Kind>(
                 ds,
-                "select id, symbol from asset_types where symbol = ?",
+                "select id, symbol from kinds where symbol = ?",
                 this::transformOne
         );
-        this.deleteAll = new Delete(ds, "delete from asset_types");
+        this.deleteAll = new Delete(ds, "delete from kinds");
         this.findAll = new SelectSet<>(
                 ds,
-                "select * from asset_types",
+                "select * from kinds",
                 this::transformOne
         );
     }
 
     @Override
-    public AssetType create(AssetType.Symbol symbol) {
+    public Kind create(Kind.Symbol symbol) {
         try {
             Integer id = create.execute(symbol.value());
-            return new AssetType(new AssetType.Id(id), symbol);
+            return new Kind(new Kind.Id(id), symbol);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public AssetType findBySymbol(AssetType.Symbol symbol) {
+    public Kind findBySymbol(Kind.Symbol symbol) {
         try {
             return findBySymbol.select(symbol.value());
         } catch (SQLException ex) {
@@ -70,11 +70,11 @@ public class AssetTypesBD implements AssetTypes {
         }
     }
 
-    private AssetType transformOne(ResultSet rs) {
+    private Kind transformOne(ResultSet rs) {
         try {
-            return new AssetType(
-                    new AssetType.Id(rs.getInt("id")),
-                    new AssetType.Symbol(rs.getString("symbol"))
+            return new Kind(
+                    new Kind.Id(rs.getInt("id")),
+                    new Kind.Symbol(rs.getString("symbol"))
             );
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -91,7 +91,7 @@ public class AssetTypesBD implements AssetTypes {
     }
 
     @Override
-    public Set<AssetType> findAll() {
+    public Set<Kind> findAll() {
         try {
             return findAll.select();
         } catch (SQLException ex) {

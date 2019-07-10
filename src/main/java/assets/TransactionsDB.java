@@ -18,14 +18,14 @@ public class TransactionsDB implements Transactions {
     private final Delete removeAll;
 
     public TransactionsDB(DataSource ds) {
-        insert = new InsertOne(ds, "insert into transactions (creation_timestamp, asset_type, quantity, unitary_price_currency, unitary_price_value) values (?,?,?,?,?)");
+        insert = new InsertOne(ds, "insert into transactions (creation_timestamp, kind, quantity, unitary_price_currency, unitary_price_value) values (?,?,?,?,?)");
         removeAll = new Delete(ds, "delete from transactions");
     }
 
     @Override
-    public Transaction buy(AssetType assetType, MonetaryAmount unitaryPrice, BigDecimal units) {
+    public Transaction buy(Kind kind, MonetaryAmount unitaryPrice, BigDecimal units) {
         try {
-            long id = insert.execute(LocalDateTime.now(), assetType, units,
+            long id = insert.execute(LocalDateTime.now(), kind, units,
                     unitaryPrice.getCurrency(), unitaryPrice.getNumber());
             return new Transaction();
         } catch (SQLException ex) {

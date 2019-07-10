@@ -21,15 +21,15 @@ public class InvestmentTest {
     @org.junit.Test
     public void balanceAfterBuyingIsCorrect() {
         DataSource ds = Scopes.test().dataSource();
-        AssetTypesBD assetTypes = new AssetTypesBD(ds);
-        AssetsDB assets = new AssetsDB(ds, assetTypes);
+        KindsDB kinds = new KindsDB(ds);
+        AssetsDB assets = new AssetsDB(ds, kinds);
         TransactionsDB transactionsDB = new TransactionsDB(ds);
-        AssetType assetType = assetTypes.create(new AssetType.Symbol("AAB"));
+        Kind AAA = kinds.create(new Kind.Symbol("AAB"));
         MonetaryAmount price = Money.of(new BigDecimal(100), Monetary.getCurrency("ARS"));
-        transactionsDB.buy(assetType, price, new BigDecimal(5));
-        transactionsDB.buy(assetType, price, new BigDecimal(10));
-        transactionsDB.buy(assetType, price, new BigDecimal(15));
-        Asset asset = assets.ofType(assetType);
+        transactionsDB.buy(AAA, price, new BigDecimal(5));
+        transactionsDB.buy(AAA, price, new BigDecimal(10));
+        transactionsDB.buy(AAA, price, new BigDecimal(15));
+        Asset asset = assets.ofType(AAA);
         assertThat(
                 "asset total after investing",
                 asset.quantity(),

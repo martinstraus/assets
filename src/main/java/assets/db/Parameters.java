@@ -16,7 +16,7 @@
  */
 package assets.db;
 
-import assets.AssetType;
+import assets.Kind;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -38,7 +38,7 @@ public class Parameters {
 
     static {
         compatibilityFunctions.put(LocalDateTime.class, (LocalDateTime v) -> Timestamp.valueOf(v));
-        compatibilityFunctions.put(AssetType.class, (AssetType v) -> v.getId().value());
+        compatibilityFunctions.put(Kind.class, (Kind v) -> v.getId().value());
         compatibilityFunctions.put(CurrencyUnit.class, (CurrencyUnit v) -> v.getCurrencyCode());
         compatibilityFunctions.put(NumberValue.class, (NumberValue v) -> v.numberValue(BigDecimal.class));
     }

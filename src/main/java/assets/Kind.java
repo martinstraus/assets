@@ -3,9 +3,11 @@ package assets;
 import java.util.Objects;
 
 /**
- * Each * @author Martín Straus <martinstraus@gmail.com>
+ * A specific kind of asset type. For instance, "AY24 bond".
+ *
+ * @author Martín Straus <martinstraus@gmail.com>
  */
-public class AssetType {
+public class Kind {
 
     public static class Id {
 
@@ -85,10 +87,10 @@ public class AssetType {
 
     }
 
-    private final AssetType.Id id;
-    private final AssetType.Symbol symbol;
+    private final Kind.Id id;
+    private final Kind.Symbol symbol;
 
-    public AssetType(Id id, Symbol symbol) {
+    public Kind(Id id, Symbol symbol) {
         this.id = id;
         this.symbol = symbol;
     }
@@ -116,7 +118,7 @@ public class AssetType {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AssetType other = (AssetType) obj;
+        final Kind other = (Kind) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -124,6 +126,11 @@ public class AssetType {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Kind{" + "id=" + id + ", symbol=" + symbol + '}';
     }
 
 }

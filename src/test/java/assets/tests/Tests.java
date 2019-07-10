@@ -16,7 +16,7 @@
  */
 package assets.tests;
 
-import assets.AssetTypesBD;
+import assets.KindsDB;
 import assets.TransactionsDB;
 import assets.runtime.Scopes;
 import javax.sql.DataSource;
@@ -30,6 +30,6 @@ public class Tests {
     public static void removeEverythingFromDB() {
         DataSource ds = Scopes.test().dataSource();
         new TransactionsDB(ds).removeAll();
-        new AssetTypesBD(ds).deleteAll();
+        new KindsDB(ds).deleteAll();
     }
 }

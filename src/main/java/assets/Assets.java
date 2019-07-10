@@ -22,5 +22,5 @@ package assets;
  */
 public interface Assets {
 
-    Asset ofType(AssetType type);
+    Asset ofType(Kind type);
 }

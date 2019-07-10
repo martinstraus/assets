@@ -27,24 +27,24 @@ import org.junit.Test;
  *
  * @author martinstraus
  */
-public class AssetTypeDBTest {
+public class KindsDBTest {
 
     @Test
     public void assetTypeIsFindableAfterCreation() {
-        AssetTypesBD assetTypesBD = new AssetTypesBD(Scopes.current().dataSource());
-        AssetType.Symbol symbol = new AssetType.Symbol("AAA");
-        AssetType created = assetTypesBD.create(symbol);
-        AssetType found = assetTypesBD.findBySymbol(symbol);
+        KindsDB assetTypesBD = new KindsDB(Scopes.current().dataSource());
+        Kind.Symbol symbol = new Kind.Symbol("AAA");
+        Kind created = assetTypesBD.create(symbol);
+        Kind found = assetTypesBD.findBySymbol(symbol);
         Assert.assertTrue("found equals created", found.equals(created));
     }
 
     @Test
     public void findAllReturnsAllCreated() {
-        AssetTypesBD assetTypesBD = new AssetTypesBD(Scopes.current().dataSource());
-        AssetType assetA = assetTypesBD.create(new AssetType.Symbol("AAA"));
-        AssetType assetB = assetTypesBD.create(new AssetType.Symbol("BBB"));
-        Set<AssetType> found = assetTypesBD.findAll();
-        Assert.assertTrue("findAll contains all created", found.containsAll(Set.of(assetA, assetB)));
+        KindsDB kindsBD = new KindsDB(Scopes.current().dataSource());
+        Kind AAA = kindsBD.create(new Kind.Symbol("AAA"));
+        Kind BBB = kindsBD.create(new Kind.Symbol("BBB"));
+        Set<Kind> found = kindsBD.findAll();
+        Assert.assertTrue("findAll contains all created", found.containsAll(Set.of(AAA, BBB)));
     }
 
     @After
