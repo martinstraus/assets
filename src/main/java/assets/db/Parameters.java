@@ -16,8 +16,17 @@
  */
 package assets.db;
 
+import assets.AssetType;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+import javax.money.CurrencyUnit;
+import javax.money.NumberValue;
 
 /**
  *
@@ -25,9 +34,40 @@ import java.sql.SQLException;
  */
 public class Parameters {
 
+    private static final Map<Class, Function<?, ?>> compatibilityFunctions = new HashMap<>();
+
+    static {
+        compatibilityFunctions.put(LocalDateTime.class, (LocalDateTime v) -> Timestamp.valueOf(v));
+        compatibilityFunctions.put(AssetType.class, (AssetType v) -> v.getId().value());
+        compatibilityFunctions.put(CurrencyUnit.class, (CurrencyUnit v) -> v.getCurrencyCode());
+        compatibilityFunctions.put(NumberValue.class, (NumberValue v) -> v.numberValue(BigDecimal.class));
+    }
+
     public static void apply(PreparedStatement stmt, Object... parameters) throws SQLException {
         for (int i = 0; i < parameters.length; i++) {
-            stmt.setObject(i+1, parameters[i]);
+            stmt.setObject(i + 1, compatibleWithJDBC(parameters[i]));
         }
+    }
+
+    private static Object compatibleWithJDBC(Object parameter) {
+        Function function = functionForObject(parameter);
+        return function != null ? function.apply(parameter) : parameter;
+    }
+
+    private static Function functionForObject(Object parameter) {
+        return functionForClass(parameter.getClass());
+    }
+
+    private static Function functionForClass(Class aClass) {
+        Function<?, ?> function = compatibilityFunctions.get(aClass);
+        if (function != null) {
+            return function;
+        }
+        for (Class theExpectedClass : compatibilityFunctions.keySet()) {
+            if (theExpectedClass.isAssignableFrom(aClass)) {
+                return compatibilityFunctions.get(theExpectedClass);
+            }
+        }
+        return null;
     }
 }

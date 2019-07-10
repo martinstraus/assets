@@ -17,6 +17,8 @@
 package assets;
 
 import assets.runtime.Scopes;
+import assets.tests.Tests;
+import java.util.Set;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,10 +37,19 @@ public class AssetTypeDBTest {
         AssetType found = assetTypesBD.findBySymbol(symbol);
         Assert.assertTrue("found equals created", found.equals(created));
     }
-    
+
+    @Test
+    public void findAllReturnsAllCreated() {
+        AssetTypesBD assetTypesBD = new AssetTypesBD(Scopes.current().dataSource());
+        AssetType assetA = assetTypesBD.create(new AssetType.Symbol("AAA"));
+        AssetType assetB = assetTypesBD.create(new AssetType.Symbol("BBB"));
+        Set<AssetType> found = assetTypesBD.findAll();
+        Assert.assertTrue("findAll contains all created", found.containsAll(Set.of(assetA, assetB)));
+    }
+
     @After
     public void removeAll() {
-        new AssetTypesBD(Scopes.current().dataSource()).deleteAll();
+        Tests.removeEverythingFromDB();
     }
 
 }

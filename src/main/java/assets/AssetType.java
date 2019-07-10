@@ -93,6 +93,10 @@ public class AssetType {
         this.symbol = symbol;
     }
 
+    public Id getId() {
+        return id;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;

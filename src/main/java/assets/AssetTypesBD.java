@@ -19,8 +19,10 @@ package assets;
 import assets.db.Delete;
 import assets.db.InsertOne;
 import assets.db.SelectOne;
+import assets.db.SelectSet;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Set;
 import javax.sql.DataSource;
 
 /**
@@ -32,6 +34,7 @@ public class AssetTypesBD implements AssetTypes {
     private final InsertOne create;
     private final SelectOne<AssetType> findBySymbol;
     private final Delete deleteAll;
+    private final SelectSet<AssetType> findAll;
 
     public AssetTypesBD(DataSource ds) {
         this.create = new InsertOne(ds, "insert into asset_types (symbol) values (?)");
@@ -41,6 +44,11 @@ public class AssetTypesBD implements AssetTypes {
                 this::transformOne
         );
         this.deleteAll = new Delete(ds, "delete from asset_types");
+        this.findAll = new SelectSet<>(
+                ds,
+                "select * from asset_types",
+                this::transformOne
+        );
     }
 
     @Override
@@ -77,6 +85,15 @@ public class AssetTypesBD implements AssetTypes {
     public void deleteAll() {
         try {
             deleteAll.delete();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public Set<AssetType> findAll() {
+        try {
+            return findAll.select();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
