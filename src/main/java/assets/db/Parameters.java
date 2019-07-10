@@ -17,6 +17,7 @@
 package assets.db;
 
 import assets.Kind;
+import assets.Type;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -41,6 +42,7 @@ public class Parameters {
         compatibilityFunctions.put(Kind.class, (Kind v) -> v.getId().value());
         compatibilityFunctions.put(CurrencyUnit.class, (CurrencyUnit v) -> v.getCurrencyCode());
         compatibilityFunctions.put(NumberValue.class, (NumberValue v) -> v.numberValue(BigDecimal.class));
+        compatibilityFunctions.put(Type.class, (Type v) -> v.ordinal());
     }
 
     public static void apply(PreparedStatement stmt, Object... parameters) throws SQLException {
@@ -50,6 +52,9 @@ public class Parameters {
     }
 
     private static Object compatibleWithJDBC(Object parameter) {
+        if (parameter == null) {
+            return null;
+        }
         Function function = functionForObject(parameter);
         return function != null ? function.apply(parameter) : parameter;
     }

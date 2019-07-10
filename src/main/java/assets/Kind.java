@@ -88,10 +88,12 @@ public class Kind {
     }
 
     private final Kind.Id id;
+    private final Type type;
     private final Kind.Symbol symbol;
 
-    public Kind(Id id, Symbol symbol) {
+    public Kind(Id id, Type type, Symbol symbol) {
         this.id = id;
+        this.type = type;
         this.symbol = symbol;
     }
 
@@ -101,9 +103,10 @@ public class Kind {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.symbol);
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.type);
+        hash = 83 * hash + Objects.hashCode(this.symbol);
         return hash;
     }
 
@@ -122,15 +125,15 @@ public class Kind {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
+        if (this.type != other.type) {
+            return false;
+        }
         if (!Objects.equals(this.symbol, other.symbol)) {
             return false;
         }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Kind{" + "id=" + id + ", symbol=" + symbol + '}';
-    }
+    
 
 }

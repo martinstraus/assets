@@ -37,10 +37,10 @@ public class KindsDB implements Kinds {
     private final SelectSet<Kind> findAll;
 
     public KindsDB(DataSource ds) {
-        this.create = new InsertOne(ds, "insert into kinds (symbol) values (?)");
+        this.create = new InsertOne(ds, "insert into kinds (type, symbol) values (?,?)");
         this.findBySymbol = new SelectOne<Kind>(
                 ds,
-                "select id, symbol from kinds where symbol = ?",
+                "select id, type, symbol from kinds where symbol = ?",
                 this::transformOne
         );
         this.deleteAll = new Delete(ds, "delete from kinds");
@@ -52,10 +52,10 @@ public class KindsDB implements Kinds {
     }
 
     @Override
-    public Kind create(Kind.Symbol symbol) {
+    public Kind create(Type type, Kind.Symbol symbol) {
         try {
-            Integer id = create.execute(symbol.value());
-            return new Kind(new Kind.Id(id), symbol);
+            Integer id = create.execute(type, symbol.value());
+            return new Kind(new Kind.Id(id), type, symbol);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -74,6 +74,7 @@ public class KindsDB implements Kinds {
         try {
             return new Kind(
                     new Kind.Id(rs.getInt("id")),
+                    Type.values()[rs.getInt("type")],
                     new Kind.Symbol(rs.getString("symbol"))
             );
         } catch (SQLException ex) {

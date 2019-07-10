@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public interface Kinds {
 
-    Kind create(Kind.Symbol symbol);
+    Kind create(Type type, Kind.Symbol symbol);
 
     Kind findBySymbol(Kind.Symbol symbol);
     
