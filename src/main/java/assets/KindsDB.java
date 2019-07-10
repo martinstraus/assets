@@ -32,12 +32,18 @@ import javax.sql.DataSource;
 public class KindsDB implements Kinds {
 
     private final InsertOne create;
+    private final SelectOne<Kind> findById;
     private final SelectOne<Kind> findBySymbol;
     private final Delete deleteAll;
     private final SelectSet<Kind> findAll;
 
     public KindsDB(DataSource ds) {
         this.create = new InsertOne(ds, "insert into kinds (type, symbol) values (?,?)");
+        this.findById = new SelectOne<Kind>(
+                ds,
+                "select id, type, symbol from kinds where id = ?",
+                this::transformOne
+        );
         this.findBySymbol = new SelectOne<Kind>(
                 ds,
                 "select id, type, symbol from kinds where symbol = ?",
@@ -62,9 +68,26 @@ public class KindsDB implements Kinds {
     }
 
     @Override
-    public Kind findBySymbol(Kind.Symbol symbol) {
+    public Kind findById(Kind.Id id) throws NotFound {
         try {
-            return findBySymbol.select(symbol.value());
+            Kind kind = findById.select(id.value());
+            if (kind == null) {
+                throw new NotFound(String.format("No kind found with id %d", id.value()));
+            }
+            return kind;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public Kind findBySymbol(Kind.Symbol symbol) throws NotFound {
+        try {
+            Kind kind = findBySymbol.select(symbol.value());
+            if (kind == null) {
+                throw new NotFound(String.format("No kind found with symbol %s", symbol.value()));
+            }
+            return kind;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

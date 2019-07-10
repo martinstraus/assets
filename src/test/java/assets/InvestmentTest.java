@@ -24,7 +24,7 @@ public class InvestmentTest {
         KindsDB kinds = new KindsDB(ds);
         AssetsDB assets = new AssetsDB(ds, kinds);
         TransactionsDB transactionsDB = new TransactionsDB(ds);
-        Kind AAA = kinds.create(Type.BOND, new Kind.Symbol("AAB"));
+        Kind AAA = kinds.create(Type.BOND, new Kind.Symbol("AAA"));
         MonetaryAmount price = Money.of(new BigDecimal(100), Monetary.getCurrency("ARS"));
         transactionsDB.buy(AAA, price, new BigDecimal(5));
         transactionsDB.buy(AAA, price, new BigDecimal(10));

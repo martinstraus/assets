@@ -30,7 +30,7 @@ import org.junit.Test;
 public class KindsDBTest {
 
     @Test
-    public void assetTypeIsFindableAfterCreation() {
+    public void assetTypeIsFindableAfterCreation() throws NotFound {
         KindsDB assetTypesBD = new KindsDB(Scopes.current().dataSource());
         Kind.Symbol symbol = new Kind.Symbol("AAA");
         Kind created = assetTypesBD.create(Type.BOND, symbol);

@@ -19,6 +19,8 @@ package assets;
 import assets.db.SelectOne;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 /**
@@ -38,7 +40,7 @@ public class AssetsDB implements Assets {
     @Override
     public Asset ofType(Kind type) {
         try {
-            return selectOfType.select(type);
+            return selectOfType.select(type.getId().value());
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -47,10 +49,10 @@ public class AssetsDB implements Assets {
     private Asset transformOne(ResultSet rs) {
         try {
             return new Asset(
-                    kinds.findBySymbol(new Kind.Symbol(rs.getString("kind"))),
+                    kinds.findById(new Kind.Id(rs.getInt("kind"))),
                     rs.getBigDecimal("quantity")
             );
-        } catch (SQLException ex) {
+        } catch (NotFound | SQLException ex) {
             throw new RuntimeException(ex);
         }
     }

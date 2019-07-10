@@ -41,5 +41,5 @@ test {
 }
 
 run {    
-    systemProperty "scope", System.getProperty("scope")
+    systemProperty "scope", System.getProperty("scope", "development")
 }

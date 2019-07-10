@@ -10,10 +10,12 @@ public interface Kinds {
 
     Kind create(Type type, Kind.Symbol symbol);
 
-    Kind findBySymbol(Kind.Symbol symbol);
-    
+    Kind findById(Kind.Id id) throws NotFound;
+
+    Kind findBySymbol(Kind.Symbol symbol) throws NotFound;
+
     Set<Kind> findAll();
-    
+
     void deleteAll();
 
 }
