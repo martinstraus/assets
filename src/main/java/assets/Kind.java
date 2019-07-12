@@ -97,8 +97,12 @@ public class Kind {
         this.symbol = symbol;
     }
 
-    public Id getId() {
+    public Id id() {
         return id;
+    }
+    
+    public Symbol symbol() {
+        return symbol;
     }
 
     @Override

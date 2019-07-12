@@ -40,7 +40,7 @@ public class AssetsDB implements Assets {
     @Override
     public Asset ofType(Kind type) {
         try {
-            return selectOfType.select(type.getId().value());
+            return selectOfType.select(type.id().value());
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

@@ -14,30 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package assets.tests;
+package assets;
 
-import assets.KindsDB;
-import assets.TransactionsDB;
-import assets.runtime.Scopes;
 import java.math.BigDecimal;
-import javax.money.Monetary;
 import javax.money.MonetaryAmount;
-import javax.sql.DataSource;
-import org.javamoney.moneta.Money;
 
 /**
  *
  * @author martinstraus
  */
-public class Tests {
+public interface Investments {
 
-    public static void removeEverythingFromDB() {
-        DataSource ds = Scopes.test().dataSource();
-        new TransactionsDB(ds).removeAll();
-        new KindsDB(ds).deleteAll();
-    }
+    Transaction buy(java.time.LocalDate purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units);
 
-    public static MonetaryAmount money(BigDecimal value) {
-        return Money.of(value, Monetary.getCurrency("ARS"));
-    }
+    Transaction sell(java.time.LocalDate purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units) throws NotEnoughBalance;
+
 }

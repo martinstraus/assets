@@ -42,7 +42,7 @@ public class Parameters {
     static {
         compatibilityFunctions.put(LocalDateTime.class, (LocalDateTime v) -> Timestamp.valueOf(v));
         compatibilityFunctions.put(LocalDate.class, (LocalDate v) -> Date.valueOf(v));
-        compatibilityFunctions.put(Kind.class, (Kind v) -> v.getId().value());
+        compatibilityFunctions.put(Kind.class, (Kind v) -> v.id().value());
         compatibilityFunctions.put(CurrencyUnit.class, (CurrencyUnit v) -> v.getCurrencyCode());
         compatibilityFunctions.put(NumberValue.class, (NumberValue v) -> v.numberValue(BigDecimal.class));
         compatibilityFunctions.put(Type.class, (Type v) -> v.ordinal());

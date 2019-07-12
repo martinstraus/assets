@@ -4,6 +4,7 @@ import assets.db.Delete;
 import assets.db.InsertOne;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.money.MonetaryAmount;
 import javax.sql.DataSource;
@@ -23,7 +24,7 @@ public class TransactionsDB implements Transactions {
     }
 
     @Override
-    public Transaction buy(java.time.LocalDate purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units) {
+    public Transaction registerTransaction(java.time.LocalDate purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units) {
         try {
             long id = insert.execute(LocalDateTime.now(), purchaseDate, kind, units,
                     unitaryPrice.getCurrency(), unitaryPrice.getNumber());

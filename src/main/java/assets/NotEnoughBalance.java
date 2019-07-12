@@ -14,30 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package assets.tests;
-
-import assets.KindsDB;
-import assets.TransactionsDB;
-import assets.runtime.Scopes;
-import java.math.BigDecimal;
-import javax.money.Monetary;
-import javax.money.MonetaryAmount;
-import javax.sql.DataSource;
-import org.javamoney.moneta.Money;
+package assets;
 
 /**
  *
  * @author martinstraus
  */
-public class Tests {
+public class NotEnoughBalance extends Exception {
 
-    public static void removeEverythingFromDB() {
-        DataSource ds = Scopes.test().dataSource();
-        new TransactionsDB(ds).removeAll();
-        new KindsDB(ds).deleteAll();
+    public NotEnoughBalance(String message) {
+        super(message);
     }
-
-    public static MonetaryAmount money(BigDecimal value) {
-        return Money.of(value, Monetary.getCurrency("ARS"));
-    }
+    
 }
