@@ -29,6 +29,7 @@ public class App {
 
     public void run() {
         new Initialization(kinds).run();
+        staticFiles.location("/static");
         get("/", new Index(templateEngine));
     }
 }
