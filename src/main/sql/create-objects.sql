@@ -2,6 +2,7 @@ create table kinds (
     id serial primary key,
     type smallint not null,
     symbol varchar(20) not null unique,
+    description varchar(200),
     constraint kinds_type_chk check (type >= 0 and type <= 3)
 );
 

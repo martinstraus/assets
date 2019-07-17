@@ -33,7 +33,7 @@ public class KindsDBTest {
     public void assetTypeIsFindableAfterCreation() throws NotFound {
         KindsDB assetTypesBD = new KindsDB(Scopes.current().dataSource());
         Kind.Symbol symbol = new Kind.Symbol("AAA");
-        Kind created = assetTypesBD.create(Type.BOND, symbol);
+        Kind created = assetTypesBD.create(Type.BOND, symbol, "Test kind");
         Kind found = assetTypesBD.findBySymbol(symbol);
         Assert.assertTrue("found equals created", found.equals(created));
     }
@@ -41,8 +41,8 @@ public class KindsDBTest {
     @Test
     public void findAllReturnsAllCreated() {
         KindsDB kindsBD = new KindsDB(Scopes.current().dataSource());
-        Kind AAA = kindsBD.create(Type.BOND, new Kind.Symbol("AAA"));
-        Kind BBB = kindsBD.create(Type.BOND, new Kind.Symbol("BBB"));
+        Kind AAA = kindsBD.create(Type.BOND, new Kind.Symbol("AAA"), "Kind AAA");
+        Kind BBB = kindsBD.create(Type.BOND, new Kind.Symbol("BBB"), "Kind BBB");
         Set<Kind> found = kindsBD.findAll();
         Assert.assertTrue("findAll contains all created", found.containsAll(Set.of(AAA, BBB)));
     }

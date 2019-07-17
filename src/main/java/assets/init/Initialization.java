@@ -34,20 +34,20 @@ public class Initialization {
     }
 
     public void run() {
-        createIfNotExists(Type.FOREIGN_CURRENCY, "USD");
-        createIfNotExists(Type.BOND, "AY24");
-        createIfNotExists(Type.FUND, "ALPHA_RF_USD");
+        createIfNotExists(Type.FOREIGN_CURRENCY, "USD", "Dolares Estadounidenses");
+        createIfNotExists(Type.BOND, "AY24", "Bonar 2024");
+        createIfNotExists(Type.FUND, "ALPHA_RF_USD", "Alpha Renta Fija Dolares");
     }
 
-    private void createIfNotExists(Type type, String symbol) {
-        createIfNotExists(type, new Kind.Symbol(symbol));
+    private void createIfNotExists(Type type, String symbol, String description) {
+        createIfNotExists(type, new Kind.Symbol(symbol), description);
     }
 
-    private void createIfNotExists(Type type, Kind.Symbol symbol) {
+    private void createIfNotExists(Type type, Kind.Symbol symbol, String description) {
         try {
             kinds.findBySymbol(symbol);
         } catch (NotFound ex) {
-            kinds.create(type, symbol);
+            kinds.create(type, symbol, description);
         }
     }
 }

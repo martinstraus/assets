@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public interface Kinds {
 
-    Kind create(Type type, Kind.Symbol symbol);
+    Kind create(Type type, Kind.Symbol symbol, String description);
 
     Kind findById(Kind.Id id) throws NotFound;
 

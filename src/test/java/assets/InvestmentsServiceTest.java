@@ -25,7 +25,7 @@ public class InvestmentsServiceTest {
         KindsDB kinds = new KindsDB(ds);
         TransactionsDB transactions = new TransactionsDB(ds);
         AssetsDB assets = new AssetsDB(ds, kinds);
-        Kind AAA = kinds.create(Type.STOCK, new Kind.Symbol("AAA"));
+        Kind AAA = kinds.create(Type.STOCK, new Kind.Symbol("AAA"), "");
         new InvestmentsDefault(transactions, assets).buy(
                 LocalDate.now(),
                 AAA,
@@ -41,7 +41,7 @@ public class InvestmentsServiceTest {
         KindsDB kinds = new KindsDB(ds);
         TransactionsDB transactions = new TransactionsDB(ds);
         AssetsDB assets = new AssetsDB(ds, kinds);
-        Kind AAA = kinds.create(Type.STOCK, new Kind.Symbol("AAA"));
+        Kind AAA = kinds.create(Type.STOCK, new Kind.Symbol("AAA"), "");
         new InvestmentsDefault(transactions, assets).sell(
                 LocalDate.now(),
                 AAA,
@@ -57,7 +57,7 @@ public class InvestmentsServiceTest {
         AssetsDB assets = new AssetsDB(ds, kinds);
         TransactionsDB transactionsDB = new TransactionsDB(ds);
         Investments investments = new InvestmentsDefault(transactionsDB, assets);
-        Kind AAA = kinds.create(Type.BOND, new Kind.Symbol("AAA"));
+        Kind AAA = kinds.create(Type.BOND, new Kind.Symbol("AAA"), "");
         MonetaryAmount price = Tests.money(new BigDecimal(100));
         investments.buy(LocalDate.now(), AAA, price, new BigDecimal(5));
         investments.buy(LocalDate.now(), AAA, price, new BigDecimal(10));
@@ -77,7 +77,7 @@ public class InvestmentsServiceTest {
         AssetsDB assets = new AssetsDB(ds, kinds);
         TransactionsDB transactionsDB = new TransactionsDB(ds);
         Investments investments = new InvestmentsDefault(transactionsDB, assets);
-        Kind AAA = kinds.create(Type.BOND, new Kind.Symbol("AAA"));
+        Kind AAA = kinds.create(Type.BOND, new Kind.Symbol("AAA"), "");
         MonetaryAmount price = Money.of(new BigDecimal(100), Monetary.getCurrency("ARS"));
         investments.sell(LocalDate.now(), AAA, price, new BigDecimal(3));
     }

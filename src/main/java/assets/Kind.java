@@ -90,27 +90,34 @@ public class Kind {
     private final Kind.Id id;
     private final Type type;
     private final Kind.Symbol symbol;
+    private final String description;
 
-    public Kind(Id id, Type type, Symbol symbol) {
+    public Kind(Id id, Type type, Symbol symbol, String description) {
         this.id = id;
         this.type = type;
         this.symbol = symbol;
+        this.description = description;
     }
 
     public Id id() {
         return id;
     }
-    
+
     public Symbol symbol() {
         return symbol;
+    }
+
+    public String description() {
+        return description;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.id);
-        hash = 83 * hash + Objects.hashCode(this.type);
-        hash = 83 * hash + Objects.hashCode(this.symbol);
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.type);
+        hash = 13 * hash + Objects.hashCode(this.symbol);
+        hash = 13 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -126,6 +133,9 @@ public class Kind {
             return false;
         }
         final Kind other = (Kind) obj;
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -137,7 +147,5 @@ public class Kind {
         }
         return true;
     }
-
-    
 
 }

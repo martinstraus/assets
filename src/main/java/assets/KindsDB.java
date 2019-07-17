@@ -22,6 +22,7 @@ import assets.db.SelectOne;
 import assets.db.SelectSet;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.Set;
 import javax.sql.DataSource;
 
@@ -38,30 +39,30 @@ public class KindsDB implements Kinds {
     private final SelectSet<Kind> findAll;
 
     public KindsDB(DataSource ds) {
-        this.create = new InsertOne(ds, "insert into kinds (type, symbol) values (?,?)");
+        this.create = new InsertOne(ds, "insert into kinds (type, symbol, description) values (?,?,?)");
         this.findById = new SelectOne<Kind>(
                 ds,
-                "select id, type, symbol from kinds where id = ?",
+                "select id, type, symbol, description from kinds where id = ?",
                 this::transformOne
         );
         this.findBySymbol = new SelectOne<Kind>(
                 ds,
-                "select id, type, symbol from kinds where symbol = ?",
+                "select id, type, symbol, description from kinds where symbol = ?",
                 this::transformOne
         );
         this.deleteAll = new Delete(ds, "delete from kinds");
         this.findAll = new SelectSet<>(
                 ds,
-                "select * from kinds",
+                "select id, type, symbol, description from kinds",
                 this::transformOne
         );
     }
 
     @Override
-    public Kind create(Type type, Kind.Symbol symbol) {
+    public Kind create(Type type, Kind.Symbol symbol, String description) {
         try {
-            Integer id = create.execute(type, symbol.value());
-            return new Kind(new Kind.Id(id), type, symbol);
+            Integer id = create.execute(type, symbol.value(), description);
+            return new Kind(new Kind.Id(id), type, symbol, description);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -98,7 +99,8 @@ public class KindsDB implements Kinds {
             return new Kind(
                     new Kind.Id(rs.getInt("id")),
                     Type.values()[rs.getInt("type")],
-                    new Kind.Symbol(rs.getString("symbol"))
+                    new Kind.Symbol(rs.getString("symbol")),
+                    Optional.ofNullable(rs.getString("description")).orElse("")
             );
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
