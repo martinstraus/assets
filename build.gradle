@@ -23,6 +23,7 @@ dependencies {
     implementation 'tec.units:unit-ri:1.0.3'
     implementation 'com.zaxxer:HikariCP:3.1.0'
     implementation 'me.grison:jtoml:1.0.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
     runtime 'org.postgresql:postgresql:+'
     runtime 'org.slf4j:slf4j-simple:+'
     testImplementation 'com.mashape.unirest:unirest-java:1.4.6'

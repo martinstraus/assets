@@ -4,7 +4,6 @@ import assets.db.Delete;
 import assets.db.InsertOne;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.money.MonetaryAmount;
 import javax.sql.DataSource;
@@ -28,7 +27,7 @@ public class TransactionsDB implements Transactions {
         try {
             long id = insert.execute(LocalDateTime.now(), purchaseDate, kind, units,
                     unitaryPrice.getCurrency(), unitaryPrice.getNumber());
-            return new Transaction();
+            return new Transaction(new Transaction.Id(id));
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
