@@ -11,9 +11,9 @@ create table transactions (
     creation_timestamp timestamp with time zone not null,
     date date not null,
     kind int not null,
-    quantity numeric(10,2) not null,
+    quantity numeric(12,6) not null,
     unitary_price_currency char(3) not null,
-    unitary_price_value money not null,
+    unitary_price_value numeric(12,6) not null,
     constraint transactions_asset_type_fk foreign key (kind) references kinds(id)
 );
 
