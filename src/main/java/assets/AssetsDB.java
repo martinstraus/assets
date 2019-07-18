@@ -17,10 +17,9 @@
 package assets;
 
 import assets.db.SelectOne;
+import assets.db.SelectSet;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 /**
@@ -31,16 +30,27 @@ public class AssetsDB implements Assets {
 
     private final Kinds kinds;
     private final SelectOne<Asset> selectOfType;
+    private final SelectSet<Asset> selectAll;
 
     public AssetsDB(DataSource ds, Kinds kinds) {
         this.kinds = kinds;
         selectOfType = new SelectOne<>(ds, "select * from assets where kind = ?", this::transformOne);
+        selectAll = new SelectSet<>(ds, "select * from assets", this::transformOne);
     }
 
     @Override
     public Asset ofType(Kind type) {
         try {
             return selectOfType.select(type.id().value());
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public AssetsSet all() {
+        try {
+            return new AssetsSetDefault(selectAll.select());
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

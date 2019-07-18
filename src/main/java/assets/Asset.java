@@ -1,6 +1,7 @@
 package assets;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 
 /**
  *
@@ -8,6 +9,8 @@ import java.math.BigDecimal;
  */
 public class Asset {
 
+    public static final Comparator<Asset> COMPARATOR_BY_KIND = (Asset a, Asset b) -> Kind.COMPARATOR_BY_SYMBOL.compare(a.kind(), b.kind());
+    
     private final Kind type;
     private final BigDecimal quantity;
 
@@ -16,7 +19,7 @@ public class Asset {
         this.quantity = quantity;
     }
 
-    public Kind type() {
+    public Kind kind() {
         return type;
     }
 

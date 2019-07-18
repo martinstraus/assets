@@ -7,6 +7,7 @@ import assets.runtime.Scopes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.time.LocalDate;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import static spark.Spark.*;
 import spark.TemplateEngine;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -14,28 +15,24 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 public class App {
 
     public static void main(String[] args) {
-        new App().run();
+        ThymeleafTemplateEngine thymeleaf = new ThymeleafTemplateEngine();
+        new App(Scopes.current(), thymeleaf).run();
     }
 
     private final Scope scope;
     private final TemplateEngine templateEngine;
     private final Kinds kinds;
     private final Investments investments;
+    private final Assets assets;
     private final Gson gson;
-
-    public App() {
-        this(Scopes.current(), new ThymeleafTemplateEngine());
-    }
 
     public App(Scope scope, TemplateEngine templateEngine) {
         this.scope = scope;
         this.templateEngine = templateEngine;
         var ds = scope.dataSource();
         this.kinds = new KindsDB(ds);
-        this.investments = new InvestmentsDefault(
-                new TransactionsDB(ds),
-                new AssetsDB(ds, kinds)
-        );
+        this.assets = new AssetsDB(ds, kinds);
+        this.investments = new InvestmentsDefault(new TransactionsDB(ds), assets);
         this.gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter().nullSafe())
                 .create();
@@ -45,6 +42,7 @@ public class App {
         new Initialization(kinds).run();
         staticFiles.location("/static");
         get("/", new Index(templateEngine));
+        get("/investments", new assets.investments.ListPage(assets, templateEngine));
         path("/api", () -> {
             post(
                     "/investments",

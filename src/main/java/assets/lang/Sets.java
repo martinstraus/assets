@@ -16,10 +16,20 @@
  */
 package assets.lang;
 
+import java.util.Comparator;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 /**
  *
  * @author martinstraus
  */
 public class Sets {
-    
+
+    public static <T> SortedSet<T> sortedBy(Set<T> set, Comparator<T> comparator) {
+        SortedSet<T> sorted = new TreeSet<>(comparator);
+        sorted.addAll(set);
+        return sorted;
+    }
 }

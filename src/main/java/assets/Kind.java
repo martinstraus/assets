@@ -1,5 +1,6 @@
 package assets;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -48,7 +49,7 @@ public class Kind {
 
     }
 
-    public static class Symbol {
+    public static class Symbol implements Comparable<Symbol> {
 
         private final String value;
 
@@ -85,12 +86,23 @@ public class Kind {
             return true;
         }
 
+        @Override
+        public int compareTo(Symbol other) {
+            return value.compareTo(other.value());
+        }
+
     }
+
+    public static final Comparator<Kind> COMPARATOR_BY_SYMBOL = (Kind a, Kind b) -> a.symbol().compareTo(b.symbol());
 
     private final Kind.Id id;
     private final Type type;
     private final Kind.Symbol symbol;
     private final String description;
+
+    public Kind(int id, Type type, String symbol, String description) {
+        this(new Id(id), type, new Symbol(symbol), description);
+    }
 
     public Kind(Id id, Type type, Symbol symbol, String description) {
         this.id = id;
@@ -101,6 +113,10 @@ public class Kind {
 
     public Id id() {
         return id;
+    }
+
+    public Type type() {
+        return type;
     }
 
     public Symbol symbol() {

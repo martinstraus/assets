@@ -16,13 +16,31 @@
  */
 package assets;
 
+import assets.lang.Sets;
+import java.util.Comparator;
+import java.util.Set;
+import java.util.SortedSet;
+
 /**
  *
  * @author martinstraus
  */
-public interface Assets {
+public class AssetsSetDefault implements AssetsSet {
 
-    Asset ofType(Kind type);
-    
-    AssetsSet all();
+    private final Set<Asset> set;
+
+    public AssetsSetDefault(Set<Asset> set) {
+        this.set = set;
+    }
+
+    @Override
+    public SortedSet<Asset> sortedBy(Comparator<Asset> comparator) {
+        return Sets.sortedBy(set, comparator);
+    }
+
+    @Override
+    public SortedSet<Asset> sortedByKind() {
+        return sortedBy(Asset.COMPARATOR_BY_KIND);
+    }
+
 }

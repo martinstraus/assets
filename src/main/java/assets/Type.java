@@ -21,5 +21,18 @@ package assets;
  * @author martinstraus
  */
 public enum Type {
-    FOREIGN_CURRENCY, STOCK, BOND, FUND;
+    FOREIGN_CURRENCY("Moneda extranjera"), 
+    STOCK("Acciones"), 
+    BOND("Bonos"), 
+    FUND("Fondo de inversión");
+
+    private final String description;
+
+    private Type(String description) {
+        this.description = description;
+    }
+
+    public String description() {
+        return description;
+    }
 }

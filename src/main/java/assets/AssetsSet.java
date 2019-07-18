@@ -16,13 +16,17 @@
  */
 package assets;
 
+import java.util.Comparator;
+import java.util.SortedSet;
+
 /**
  *
  * @author martinstraus
  */
-public interface Assets {
+public interface AssetsSet {
 
-    Asset ofType(Kind type);
-    
-    AssetsSet all();
+    SortedSet<Asset> sortedBy(Comparator<Asset> comparator);
+
+    SortedSet<Asset> sortedByKind();
+
 }
