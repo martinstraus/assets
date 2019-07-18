@@ -37,6 +37,7 @@ public class Initialization {
         createIfNotExists(Type.FOREIGN_CURRENCY, "USD", "Dolares Estadounidenses");
         createIfNotExists(Type.BOND, "AY24", "Bonar 2024");
         createIfNotExists(Type.FUND, "ALPHA_RF_USD", "Alpha Renta Fija Dolares");
+        createIfNotExists(Type.STOCK, "METR", "Metrogas S.A.");
     }
 
     private void createIfNotExists(Type type, String symbol, String description) {
