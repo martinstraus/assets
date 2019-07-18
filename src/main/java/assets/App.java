@@ -7,7 +7,6 @@ import assets.runtime.Scopes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.time.LocalDate;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import static spark.Spark.*;
 import spark.TemplateEngine;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -19,7 +18,6 @@ public class App {
         new App(Scopes.current(), thymeleaf).run();
     }
 
-    private final Scope scope;
     private final TemplateEngine templateEngine;
     private final Kinds kinds;
     private final Investments investments;
@@ -27,7 +25,6 @@ public class App {
     private final Gson gson;
 
     public App(Scope scope, TemplateEngine templateEngine) {
-        this.scope = scope;
         this.templateEngine = templateEngine;
         var ds = scope.dataSource();
         this.kinds = new KindsDB(ds);
