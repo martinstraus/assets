@@ -26,5 +26,10 @@ create table valuations (
     constraint valuations_kind_fk foreign key (kind) references kinds(id)
 );
 
+create or replace view valuations_latest as
+    SELECT distinct on (kind) *
+    from valuations
+    order by kind, timestamp desc;
+
 create or replace view assets as
     select kind, sum(quantity) as quantity from transactions group by kind;

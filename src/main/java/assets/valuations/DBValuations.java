@@ -43,7 +43,7 @@ public class DBValuations implements Valuations, Valuator {
         );
         this.selectLastKnown = new SelectOne<Valuation>(
                 ds,
-                "SELECT kind, max(timestamp) over (partition by kind), unitary_price_currency, unitary_price_value from valuations where kind = ?",
+                "select * from valuations_latest where kind = ?",
                 this::transformOne
         );
     }
