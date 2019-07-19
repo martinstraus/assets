@@ -32,4 +32,13 @@ create or replace view valuations_latest as
     order by kind, timestamp desc;
 
 create or replace view assets as
-    select kind, sum(quantity) as quantity from transactions group by kind;
+    select 
+	t.kind, 
+	sum(t.quantity) as quantity, 
+	v.unitary_price_currency as kind_price_currency, 
+	v.unitary_price_value as unitary_price_value,
+	(v.unitary_price_value * sum(t.quantity))::numeric(12,6) as market_value
+    from 
+        transactions t
+        left join valuations_latest v on v.kind = t.kind
+    group by t.kind, v.unitary_price_currency, v.unitary_price_value;
