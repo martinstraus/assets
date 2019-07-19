@@ -16,22 +16,41 @@
  */
 package assets.valuations;
 
+import assets.Asset;
+import assets.Kind;
+import java.math.BigDecimal;
+import java.util.Comparator;
 import javax.money.MonetaryAmount;
 
 /**
  *
  * @author martinstraus
  */
-public class Valuation {
+public class ValuedAsset {
+    public static Comparator<ValuedAsset> COMPARATOR_BY_ASSET = (a, b) -> Asset.COMPARATOR_BY_KIND.compare(a.asset, b.asset);
+    
+    private final Valuator valuator;
+    private final Asset asset;
 
-    private final MonetaryAmount unitaryPrice;
+    public ValuedAsset(Valuator valuator, Asset asset) {
+        this.valuator = valuator;
+        this.asset = asset;
+    }
 
-    public Valuation(MonetaryAmount unitaryPrice) {
-        this.unitaryPrice = unitaryPrice;
+    public Kind kind() {
+        return asset.kind();
+    }
+
+    public BigDecimal quantity() {
+        return asset.quantity();
     }
 
     public MonetaryAmount unitaryPrice() {
-        return unitaryPrice;
+        return valuator.lastKnowValuation(asset);
     }
 
+    public MonetaryAmount marketValue() {
+        return unitaryPrice().multiply(quantity());
+    }
+    
 }

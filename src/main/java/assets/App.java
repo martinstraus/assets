@@ -26,7 +26,7 @@ public class App {
     private final Kinds kinds;
     private final Investments investments;
     private final Assets assets;
-    private final Valuations valuations;
+    private final DBValuations valuations;
     private final Gson gson;
 
     public App(Scope scope, TemplateEngine templateEngine) {
@@ -46,7 +46,7 @@ public class App {
         new Initialization(kinds).run();
         staticFiles.location("/static");
         get("/", new Index(templateEngine));
-        get("/investments", new assets.investments.ListPage(assets, templateEngine));
+        get("/investments", new assets.investments.ListPage(assets, valuations, templateEngine));
         path("/api", () -> {
             post(
                     "/investments",

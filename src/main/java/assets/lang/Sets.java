@@ -20,6 +20,8 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -31,5 +33,9 @@ public class Sets {
         SortedSet<T> sorted = new TreeSet<>(comparator);
         sorted.addAll(set);
         return sorted;
+    }
+    
+    public static <T, U> Set<U> transformed(Set<T> set, Function<T,U> transform) {
+        return set.stream().map(transform).collect(Collectors.toSet());
     }
 }

@@ -17,9 +17,12 @@
 package assets.investments;
 
 import assets.Assets;
-import java.util.Collections;
+import assets.lang.Sets;
+import assets.valuations.Valuator;
+import assets.valuations.ValuedAsset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -33,18 +36,24 @@ import spark.TemplateEngine;
 public class ListPage implements Route {
 
     private final Assets assets;
+    private final Valuator valuator;
     private final TemplateEngine templateEngine;
 
-    public ListPage(Assets assets, TemplateEngine templateEngine) {
+    public ListPage(Assets assets, Valuator valuator, TemplateEngine templateEngine) {
         this.assets = assets;
+        this.valuator = valuator;
         this.templateEngine = templateEngine;
     }
 
     @Override
     public Object handle(Request rqst, Response rspns) throws Exception {
         Map<String, Object> model = new HashMap<>();
-        model.put("assets", assets.all());
+        model.put("assets", Sets.sortedBy(valuedAssets(), ValuedAsset.COMPARATOR_BY_ASSET));
         return templateEngine.render(new ModelAndView(model, "/investments.html"));
+    }
+
+    private Set<ValuedAsset> valuedAssets() {
+        return Sets.transformed(assets.all().sortedByKind(), (asset) -> new ValuedAsset(valuator, asset));
     }
 
 }

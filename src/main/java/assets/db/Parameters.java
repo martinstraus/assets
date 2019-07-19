@@ -21,6 +21,7 @@ import assets.Type;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -29,7 +30,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+import javax.money.MonetaryAmount;
 import javax.money.NumberValue;
+import org.javamoney.moneta.Money;
 
 /**
  *
@@ -78,5 +82,12 @@ public class Parameters {
             }
         }
         return null;
+    }
+
+    public static MonetaryAmount monetaryAmount(ResultSet rs, String currency, String value) throws SQLException {
+        return Money.of(
+                rs.getBigDecimal("unitary_price_value"),
+                Monetary.getCurrency(rs.getString("unitary_price_currency"))
+        );
     }
 }
