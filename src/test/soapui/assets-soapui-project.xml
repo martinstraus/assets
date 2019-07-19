@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="867d3251-4662-4b41-ae60-e413f61ae97e" activeEnvironment="Default" name="Assets" soapui-version="5.5.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" id="ed24cb04-27e2-48c7-b33f-a13a8e0a9e24" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:4567" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://localhost:4567</con:endpoint></con:endpoints><con:resource name="" path="" id="9f6b6c8c-e3a3-48b5-a5bc-339821c706f2"><con:settings/><con:parameters/></con:resource><con:resource name="api" path="/api" id="6fafa945-011c-49a4-872f-719a063eaf94"><con:settings/><con:parameters/><con:resource name="investments" path="investments" id="f4ca1fcf-9df0-4198-88ed-2cdc3bdf2d32"><con:settings/><con:parameters/><con:method name="Method 1" id="6acbe490-7924-4c1a-9a1d-81d771d899d6" method="POST"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>201</con:status><con:params/></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="AY24" id="b7154f2a-a7e0-4329-bcbf-6d335f724c9b" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:4567</con:endpoint><con:request>{
+	"date": "2018-11-13",
+	"kind": "AY24",
+	"quantity": 1124,
+	"unitaryPrice": {
+		"currency": "ARS",
+		"value":35.560445
+
+	}
+}
+</con:request><con:originalUri>http://localhost/api/investments</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request><con:request name="Alpha Renta Fija USD" id="b7154f2a-a7e0-4329-bcbf-6d335f724c9b" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:4567</con:endpoint><con:request>{
+	"date": "2018-05-30",
+	"kind": "ALPHA_RF_USD",
+	"quantity": 196.787900
+
+
+
+,
+	"unitaryPrice": {
+		"currency": "USD",
+		"value":20.725766
+
+
+
+	}
+}
+</con:request><con:originalUri>http://localhost/api/investments</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request><con:request name="METR" id="b7154f2a-a7e0-4329-bcbf-6d335f724c9b" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:4567</con:endpoint><con:request>{
+	"date": "2018-05-29",
+	"kind": "METR",
+	"quantity": 259.000000,
+	"unitaryPrice": {
+		"currency": "ARS",
+		"value":38.000000
+
+	}
+}
+</con:request><con:originalUri>http://localhost/api/investments</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method><con:method name="GET" id="84b3c8a6-007b-4921-9644-0f33f2683c25" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>200</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="Request 1" id="538b50a2-bd9c-4f78-b3a7-e720ba6a946f" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:4567</con:endpoint><con:request/><con:originalUri>http://localhost/api/investments</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="kinds" path="kinds" id="a32cdf3f-76c6-4d2e-9926-15643d3ca0ab"><con:settings/><con:parameters/><con:resource name="AY24" path="AY24" id="643e4831-7fd8-40cd-8776-8d2bde1ad6b2"><con:settings/><con:parameters/><con:resource name="valuations" path="valuations" id="53e5d125-f17e-4a78-a0b6-4647769bf34f"><con:settings/><con:parameters/><con:method name="POST new valuation" id="0ea790ca-908f-4100-8cea-2c71c9429ec2" method="POST"><con:settings/><con:parameters/><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>500</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>201</con:status><con:params/></con:representation><con:request name="Request 1" id="436e160e-6c3c-4f2f-b983-4f9c6178e395" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:4567</con:endpoint><con:request>{
+	"unitaryPrice": {
+		"currency": "ARS",
+		"value": 32.07
+	}
+}
+</con:request><con:originalUri>http://localhost/api/kinds/AY24/valuations</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:resource><con:resource name="METR" path="METR" id="643e4831-7fd8-40cd-8776-8d2bde1ad6b2"><con:settings/><con:parameters/><con:resource name="valuations" path="valuations" id="53e5d125-f17e-4a78-a0b6-4647769bf34f"><con:settings/><con:parameters/><con:method name="POST new valuation" id="0ea790ca-908f-4100-8cea-2c71c9429ec2" method="POST"><con:settings/><con:parameters/><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>500</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>201</con:status><con:params/></con:representation><con:request name="Request 1" id="436e160e-6c3c-4f2f-b983-4f9c6178e395" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:4567</con:endpoint><con:request>{
+	"timestamp": "2019-07-17T17:00:00",
+	"unitaryPrice": {"currency": "ARS", "value": 22}
+}
+</con:request><con:originalUri>http://localhost/api/kinds/AY24/valuations</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:resource><con:resource name="ALPHA_RF_USD" path="ALPHA_RF_USD" id="643e4831-7fd8-40cd-8776-8d2bde1ad6b2"><con:settings/><con:parameters/><con:resource name="valuations" path="valuations" id="53e5d125-f17e-4a78-a0b6-4647769bf34f"><con:settings/><con:parameters/><con:method name="POST new valuation" id="0ea790ca-908f-4100-8cea-2c71c9429ec2" method="POST"><con:settings/><con:parameters/><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>500</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>201</con:status><con:params/></con:representation><con:request name="Request 1" id="436e160e-6c3c-4f2f-b983-4f9c6178e395" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:4567</con:endpoint><con:request>{
+	"timestamp": "2019-07-17T17:00:00",
+	"unitaryPrice": {"currency": "USD", "value": 21.544852}
+}
+</con:request><con:originalUri>http://localhost/api/kinds/AY24/valuations</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:resource></con:resource></con:resource></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

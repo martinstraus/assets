@@ -6,7 +6,6 @@ import assets.json.LocalDateTimeAdapter;
 import assets.runtime.Scope;
 import assets.runtime.Scopes;
 import assets.valuations.DBValuations;
-import assets.valuations.Valuations;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.time.LocalDate;
@@ -48,14 +47,9 @@ public class App {
         get("/", new Index(templateEngine));
         get("/investments", new assets.investments.ListPage(assets, valuations, templateEngine));
         path("/api", () -> {
-            post(
-                    "/investments",
-                    new assets.investments.POST(gson, kinds, investments)
-            );
-            post(
-                    "/kinds/:symbol/valuations",
-                    new assets.valuations.POST(gson, valuations, kinds)
-            );
+            get("/investments", new assets.investments.GETAll(gson, assets, valuations));
+            post("/investments", new assets.investments.POST(gson, kinds, investments));
+            post("/kinds/:symbol/valuations", new assets.valuations.POST(gson, valuations, kinds));
         });
 
     }

@@ -18,6 +18,7 @@ package assets.valuations;
 
 import assets.Asset;
 import assets.Kind;
+import com.google.gson.JsonObject;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import javax.money.MonetaryAmount;
@@ -27,8 +28,9 @@ import javax.money.MonetaryAmount;
  * @author martinstraus
  */
 public class ValuedAsset {
+
     public static Comparator<ValuedAsset> COMPARATOR_BY_ASSET = (a, b) -> Asset.COMPARATOR_BY_KIND.compare(a.asset, b.asset);
-    
+
     private final Valuator valuator;
     private final Asset asset;
 
@@ -52,5 +54,15 @@ public class ValuedAsset {
     public MonetaryAmount marketValue() {
         return unitaryPrice().multiply(quantity());
     }
-    
+
+    public JsonObject toJSON() {
+        JsonObject json = new JsonObject();
+        json.addProperty("kind", asset.kind().symbol().value());
+        json.addProperty("description", asset.description());
+        json.addProperty("quantity", quantity());
+        json.add("price", assets.json.Objects.toJSON(unitaryPrice()));
+        json.add("marketValue", assets.json.Objects.toJSON(marketValue()));
+        return json;
+    }
+
 }

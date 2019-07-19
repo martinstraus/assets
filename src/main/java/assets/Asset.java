@@ -1,5 +1,6 @@
 package assets;
 
+import com.google.gson.JsonElement;
 import java.math.BigDecimal;
 import java.util.Comparator;
 
@@ -10,7 +11,7 @@ import java.util.Comparator;
 public class Asset {
 
     public static final Comparator<Asset> COMPARATOR_BY_KIND = (Asset a, Asset b) -> Kind.COMPARATOR_BY_SYMBOL.compare(a.kind(), b.kind());
-    
+
     private final Kind type;
     private final BigDecimal quantity;
 
@@ -25,6 +26,10 @@ public class Asset {
 
     public BigDecimal quantity() {
         return quantity;
+    }
+
+    public String description() {
+        return type.description();
     }
 
 }

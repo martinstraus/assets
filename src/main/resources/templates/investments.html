@@ -18,15 +18,19 @@
                             <tr>
                                 <th>Inversión</th>
                                 <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Valuación</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="asset:${assets.sortedByKind()}">
+                            <tr th:each="asset:${assets}">
                                 <td>
                         <th:block th:text="${asset.kind().description()}"></th:block>
                         <span class="badge badge-primary" th:text="${asset.kind().type().description()} ">Primary</span>
                         </td>
                         <td th:text="${asset.quantity()}"></td>
+                        <td th:text="${asset.unitaryPrice()}"></td>
+                        <td th:text="${asset.marketValue()}"></td>
                         </tr>
                         </tbody>
                     </table>
