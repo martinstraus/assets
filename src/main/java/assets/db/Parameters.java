@@ -46,6 +46,7 @@ public class Parameters {
         compatibilityFunctions.put(CurrencyUnit.class, (CurrencyUnit v) -> v.getCurrencyCode());
         compatibilityFunctions.put(NumberValue.class, (NumberValue v) -> v.numberValue(BigDecimal.class));
         compatibilityFunctions.put(Type.class, (Type v) -> v.ordinal());
+        compatibilityFunctions.put(Kind.Id.class, (Kind.Id v) -> v.value());
     }
 
     public static void apply(PreparedStatement stmt, Object... parameters) throws SQLException {

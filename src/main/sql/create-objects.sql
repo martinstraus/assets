@@ -17,5 +17,14 @@ create table transactions (
     constraint transactions_asset_type_fk foreign key (kind) references kinds(id)
 );
 
+create table valuations (
+    kind int,
+    timestamp timestamp with time zone not null,
+    unitary_price_currency char(3) not null,
+    unitary_price_value numeric(12,6) not null,
+    primary key (kind, timestamp),
+    constraint valuations_kind_fk foreign key (kind) references kinds(id)
+);
+
 create or replace view assets as
     select kind, sum(quantity) as quantity from transactions group by kind;

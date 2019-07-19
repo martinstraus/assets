@@ -29,8 +29,9 @@ import spark.Route;
  * @author martinstraus
  */
 public class POST implements Route {
-    
+
     public static class NewInvestment {
+
         private LocalDate date;
         private String kind;
         private BigDecimal quantity;
@@ -43,7 +44,7 @@ public class POST implements Route {
 
     public POST(Gson gson, Kinds kinds, Investments investments) {
         this.gson = gson;
-        this.kinds= kinds;
+        this.kinds = kinds;
         this.investments = investments;
     }
 
@@ -51,23 +52,19 @@ public class POST implements Route {
     public Object handle(Request request, Response response) throws Exception {
         var newInvestment = gson.fromJson(request.body(), NewInvestment.class);
         Kind kind = kinds.findBySymbol(new Kind.Symbol(newInvestment.kind));
-        if (kind== null) {
+        if (kind == null) {
             response.status(400);
-            return error(String.format("Kind %s not found.",newInvestment.kind));
+            return gson.toJson(new Error(String.format("Kind %s not found.", newInvestment.kind)));
         }
         Transaction transaction = this.investments.buy(
                 newInvestment.date,
                 kind,
-                newInvestment.unitaryPrice.toMonetaryAmount(), 
+                newInvestment.unitaryPrice.toMonetaryAmount(),
                 newInvestment.quantity
         );
         response.status(201);
         response.header("Location", "/transactions/" + transaction.id().value());
         return "";
-    }
-    
-    private String error(String message) {
-        return String.format("{\"error\":\"%s\"}", message);
     }
 
 }
