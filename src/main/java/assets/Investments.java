@@ -25,8 +25,8 @@ import javax.money.MonetaryAmount;
  */
 public interface Investments {
 
-    Transaction buy(java.time.LocalDate purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units);
+    Transaction buy(java.time.LocalDateTime purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units);
 
-    Transaction sell(java.time.LocalDate purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units) throws NotEnoughBalance;
+    Transaction sell(java.time.LocalDateTime purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units) throws NotEnoughBalance;
 
 }

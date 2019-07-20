@@ -1,6 +1,9 @@
 package assets;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
+import javax.money.MonetaryAmount;
 
 /**
  *
@@ -22,13 +25,37 @@ public class Transaction {
     }
 
     private final Id id;
+    private final LocalDateTime timestamp;
+    private final Kind kind;
+    private final BigDecimal quantity;
+    private final MonetaryAmount unitaryPrice;
 
-    public Transaction(Id id) {
+    public Transaction(Id id, LocalDateTime timestamp, Kind kind, BigDecimal quantity, MonetaryAmount unitaryPrice) {
         this.id = id;
+        this.timestamp = timestamp;
+        this.kind = kind;
+        this.quantity = quantity;
+        this.unitaryPrice = unitaryPrice;
     }
 
     public Id id() {
         return id;
+    }
+
+    public LocalDateTime timestamp() {
+        return timestamp;
+    }
+
+    public Kind kind() {
+        return kind;
+    }
+
+    public BigDecimal quantity() {
+        return quantity;
+    }
+
+    public MonetaryAmount unitaryPrice() {
+        return unitaryPrice;
     }
 
     @Override

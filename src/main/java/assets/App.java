@@ -26,6 +26,7 @@ public class App {
     private final Investments investments;
     private final Assets assets;
     private final DBValuations valuations;
+    private final Transactions transactions;
     private final Gson gson;
 
     public App(Scope scope, TemplateEngine templateEngine) {
@@ -33,7 +34,8 @@ public class App {
         var ds = scope.dataSource();
         this.kinds = new KindsDB(ds);
         this.assets = new AssetsDB(ds, kinds);
-        this.investments = new InvestmentsDefault(new TransactionsDB(ds), assets);
+        this.transactions = new TransactionsDB(ds, kinds);
+        this.investments = new InvestmentsDefault(transactions, assets);
         this.valuations = new DBValuations(ds);
         this.gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter().nullSafe())
@@ -46,6 +48,7 @@ public class App {
         staticFiles.location("/static");
         get("/", new Index(templateEngine));
         get("/investments", new assets.investments.ListPage(assets, valuations, templateEngine));
+        get("/transactions", new assets.transactions.ListPage(transactions, templateEngine));
         path("/api", () -> {
             get("/investments", new assets.investments.GETAll(gson, assets, valuations));
             post("/investments", new assets.investments.POST(gson, kinds, investments));

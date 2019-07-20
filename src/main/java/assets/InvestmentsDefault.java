@@ -17,7 +17,6 @@
 package assets;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import javax.money.MonetaryAmount;
 
 /**
@@ -35,15 +34,13 @@ public class InvestmentsDefault implements Investments {
     }
 
     @Override
-    public Transaction buy(java.time.LocalDate purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units) {
+    public Transaction buy(java.time.LocalDateTime purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units) {
         assertIsGreaterThanZero(units);
-
         return transactions.registerTransaction(purchaseDate, kind, unitaryPrice, units);
     }
 
     @Override
-    public Transaction sell(LocalDate purchaseDate, Kind kind,
-            MonetaryAmount unitaryPrice, BigDecimal units) throws NotEnoughBalance {
+    public Transaction sell(java.time.LocalDateTime purchaseDate, Kind kind, MonetaryAmount unitaryPrice, BigDecimal units) throws NotEnoughBalance {
         assertIsGreaterThanZero(units);
         if (assets.ofType(kind).quantity().compareTo(units) < 0) {
             throw new NotEnoughBalance(String.format(

@@ -19,7 +19,7 @@ package assets.investments;
 import assets.*;
 import com.google.gson.Gson;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -32,7 +32,7 @@ public class POST implements Route {
 
     public static class NewInvestment {
 
-        private LocalDate date;
+        private LocalDateTime date;
         private String kind;
         private BigDecimal quantity;
         private assets.json.Money unitaryPrice;
