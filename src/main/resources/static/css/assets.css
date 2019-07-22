@@ -19,6 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     Author     : martinstraus
 */
 
-th.quantity, td.quantity, th.currency, td.currency {
+th.quantity, td.quantity, th.currency, td.currency, th.date, td.date {
     text-align: right;
 }

@@ -17,6 +17,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th class="date">Fecha</th>
                                 <th>Descripción</th>
                                 <th class="quantity">Cantidad</th>
                                 <th class="currency">Precio</th>
@@ -24,6 +25,7 @@
                         </thead>
                         <tbody>
                             <tr th:each="transaction:${transactions}">
+                                <td th:text="${#dates.onlyDate(transaction.timestamp())}" class="date"></td>
                                 <td>
                         <th:block th:text="${transaction.kind().description()}"></th:block>
                         <span class="description" th:text="${transaction.timestamp()}"></span>
