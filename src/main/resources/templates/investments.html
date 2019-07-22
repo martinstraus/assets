@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="../static/css/dashboard.css" th:href="${'/css/dashboard.css'}" rel="stylesheet">
+        <link href="../static/css/assets.css" th:href="${'/css/assets.css'}" rel="stylesheet">
     </head>
     <body>
         <nav th:replace="template::navbar"></nav>
@@ -17,9 +18,9 @@
                         <thead>
                             <tr>
                                 <th>Inversión</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Valuación</th>
+                                <th class="quantity">Cantidad</th>
+                                <th class="currency">Precio</th>
+                                <th class="currency">Valuación</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,9 +29,9 @@
                         <th:block th:text="${asset.kind().description()}"></th:block>
                         <span class="badge badge-primary" th:text="${asset.kind().type().description()} ">Primary</span>
                         </td>
-                        <td th:text="${asset.quantity()}"></td>
-                        <td th:text="${asset.unitaryPrice()}"></td>
-                        <td th:text="${asset.marketValue()}"></td>
+                        <td th:text="${#assets.quantity(asset.quantity())}" class="quantity"></td>
+                        <td th:text="${#currency.withNormalPrecision(asset.unitaryPrice())}" class="currency"></td>
+                        <td th:text="${#currency.withNormalPrecision(asset.marketValue())}" class="currency"></td>
                         </tr>
                         </tbody>
                     </table>

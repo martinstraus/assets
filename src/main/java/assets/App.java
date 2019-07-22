@@ -5,6 +5,7 @@ import assets.json.LocalDateAdapter;
 import assets.json.LocalDateTimeAdapter;
 import assets.runtime.Scope;
 import assets.runtime.Scopes;
+import assets.thymeleaf.ThymeleafTemplateEngine;
 import assets.valuations.DBValuations;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,7 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import static spark.Spark.*;
 import spark.TemplateEngine;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 public class App {
 

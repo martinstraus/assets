@@ -4,6 +4,7 @@ import assets.runtime.Scopes;
 import assets.tests.Tests;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 import javax.sql.DataSource;
@@ -23,11 +24,11 @@ public class InvestmentsServiceTest {
     public void buyingLessThanZeroGeneratesException() {
         DataSource ds = Scopes.test().dataSource();
         KindsDB kinds = new KindsDB(ds);
-        TransactionsDB transactions = new TransactionsDB(ds);
+        TransactionsDB transactions = new TransactionsDB(ds,null);
         AssetsDB assets = new AssetsDB(ds, kinds);
         Kind AAA = kinds.create(Type.STOCK, new Kind.Symbol("AAA"), "");
         new InvestmentsDefault(transactions, assets).buy(
-                LocalDate.now(),
+                LocalDateTime.now(),
                 AAA,
                 Tests.money(BigDecimal.ONE),
                 BigDecimal.ONE.negate()
@@ -39,11 +40,11 @@ public class InvestmentsServiceTest {
     public void sellingLessThanZeroGeneratesException() throws NotEnoughBalance {
         DataSource ds = Scopes.test().dataSource();
         KindsDB kinds = new KindsDB(ds);
-        TransactionsDB transactions = new TransactionsDB(ds);
+        TransactionsDB transactions = new TransactionsDB(ds,null);
         AssetsDB assets = new AssetsDB(ds, kinds);
         Kind AAA = kinds.create(Type.STOCK, new Kind.Symbol("AAA"), "");
         new InvestmentsDefault(transactions, assets).sell(
-                LocalDate.now(),
+                LocalDateTime.now(),
                 AAA,
                 Tests.money(BigDecimal.ONE),
                 BigDecimal.ONE.negate()
@@ -55,13 +56,13 @@ public class InvestmentsServiceTest {
         DataSource ds = Scopes.test().dataSource();
         KindsDB kinds = new KindsDB(ds);
         AssetsDB assets = new AssetsDB(ds, kinds);
-        TransactionsDB transactionsDB = new TransactionsDB(ds);
+        TransactionsDB transactionsDB = new TransactionsDB(ds,null);
         Investments investments = new InvestmentsDefault(transactionsDB, assets);
         Kind AAA = kinds.create(Type.BOND, new Kind.Symbol("AAA"), "");
         MonetaryAmount price = Tests.money(new BigDecimal(100));
-        investments.buy(LocalDate.now(), AAA, price, new BigDecimal(5));
-        investments.buy(LocalDate.now(), AAA, price, new BigDecimal(10));
-        investments.sell(LocalDate.now(), AAA, price, new BigDecimal(3));
+        investments.buy(LocalDateTime.now(), AAA, price, new BigDecimal(5));
+        investments.buy(LocalDateTime.now(), AAA, price, new BigDecimal(10));
+        investments.sell(LocalDateTime.now(), AAA, price, new BigDecimal(3));
         Asset asset = assets.ofType(AAA);
         assertThat(
                 "asset total after investing",
@@ -75,11 +76,11 @@ public class InvestmentsServiceTest {
         DataSource ds = Scopes.test().dataSource();
         KindsDB kinds = new KindsDB(ds);
         AssetsDB assets = new AssetsDB(ds, kinds);
-        TransactionsDB transactionsDB = new TransactionsDB(ds);
+        TransactionsDB transactionsDB = new TransactionsDB(ds,null);
         Investments investments = new InvestmentsDefault(transactionsDB, assets);
         Kind AAA = kinds.create(Type.BOND, new Kind.Symbol("AAA"), "");
         MonetaryAmount price = Money.of(new BigDecimal(100), Monetary.getCurrency("ARS"));
-        investments.sell(LocalDate.now(), AAA, price, new BigDecimal(3));
+        investments.sell(LocalDateTime.now(), AAA, price, new BigDecimal(3));
     }
 
     @After

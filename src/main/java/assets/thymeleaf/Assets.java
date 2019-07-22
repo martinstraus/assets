@@ -14,30 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package assets.tests;
+package assets.thymeleaf;
 
-import assets.KindsDB;
-import assets.TransactionsDB;
-import assets.runtime.Scopes;
 import java.math.BigDecimal;
-import javax.money.Monetary;
-import javax.money.MonetaryAmount;
-import javax.sql.DataSource;
-import org.javamoney.moneta.Money;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 /**
  *
  * @author martinstraus
  */
-public class Tests {
+public class Assets {
 
-    public static void removeEverythingFromDB() {
-        DataSource ds = Scopes.test().dataSource();
-        new TransactionsDB(ds, null).removeAll();
-        new KindsDB(ds).deleteAll();
+    private final DecimalFormat assetQuantityFormat;
+
+    public Assets() {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("es", "AR"));
+        symbols.setGroupingSeparator('.');  
+        assetQuantityFormat = new DecimalFormat("0.00;-0.00", symbols);
+        assetQuantityFormat.setGroupingUsed(true);
     }
 
-    public static MonetaryAmount money(BigDecimal value) {
-        return Money.of(value, Monetary.getCurrency("ARS"));
+    public String quantity(BigDecimal value) {
+        return assetQuantityFormat.format(value);
     }
+
 }

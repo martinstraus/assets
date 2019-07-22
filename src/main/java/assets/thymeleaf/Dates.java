@@ -14,30 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package assets.tests;
+package assets.thymeleaf;
 
-import assets.KindsDB;
-import assets.TransactionsDB;
-import assets.runtime.Scopes;
-import java.math.BigDecimal;
-import javax.money.Monetary;
-import javax.money.MonetaryAmount;
-import javax.sql.DataSource;
-import org.javamoney.moneta.Money;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author martinstraus
  */
-public class Tests {
+public class Dates {
 
-    public static void removeEverythingFromDB() {
-        DataSource ds = Scopes.test().dataSource();
-        new TransactionsDB(ds, null).removeAll();
-        new KindsDB(ds).deleteAll();
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_DATE;
+    private final DateTimeFormatter timestampFormatter = DateTimeFormatter.ISO_DATE_TIME;
+
+    public String onlyDate(LocalDateTime value) {
+        return dateFormatter.format(value);
     }
 
-    public static MonetaryAmount money(BigDecimal value) {
-        return Money.of(value, Monetary.getCurrency("ARS"));
+    public String timestamp(LocalDateTime value) {
+        return timestampFormatter.format(value);
     }
+
 }
