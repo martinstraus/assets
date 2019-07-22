@@ -54,6 +54,5 @@ public class App {
             post("/investments", new assets.investments.POST(gson, kinds, investments));
             post("/kinds/:symbol/valuations", new assets.valuations.POST(gson, valuations, kinds));
         });
-
     }
 }

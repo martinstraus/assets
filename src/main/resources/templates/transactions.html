@@ -20,7 +20,8 @@
                                 <th class="date">Fecha</th>
                                 <th>Descripción</th>
                                 <th class="quantity">Cantidad</th>
-                                <th class="currency">Precio</th>
+                                <th class="currency">Precio unitario</th>
+                                <th class="currency">Precio total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,11 +29,11 @@
                                 <td th:text="${#dates.onlyDate(transaction.timestamp())}" class="date"></td>
                                 <td>
                         <th:block th:text="${transaction.kind().description()}"></th:block>
-                        <span class="description" th:text="${transaction.timestamp()}"></span>
                         <span class="badge badge-primary" th:text="${transaction.kind().type().description()} ">Primary</span>
                         </td>
                         <td th:text="${#assets.quantity(transaction.quantity())}" class="quantity"></td>
                         <td th:text="${#currency.withNormalPrecision(transaction.unitaryPrice())}" class="currency"></td>
+                        <td th:text="${#currency.withNormalPrecision(transaction.totalPrice())}" class="currency"></td>
                         </tr>
                         </tbody>
                     </table>

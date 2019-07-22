@@ -58,6 +58,10 @@ public class Transaction {
         return unitaryPrice;
     }
 
+    public MonetaryAmount totalPrice() {
+        return unitaryPrice.multiply(quantity);
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
